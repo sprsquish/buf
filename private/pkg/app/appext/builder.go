@@ -63,7 +63,7 @@ func newBuilder(appName string, options ...BuilderOption) *builder {
 
 func (b *builder) BindRoot(flagSet *pflag.FlagSet) {
 	flagSet.BoolVar(&b.debug, "debug", false, "Turn on debug logging")
-	flagSet.StringVar(&b.logFormat, "log-format", "color", "The log format [text,color,json]")
+	flagSet.StringVar(&b.logFormat, "log-format", "color", "The log format [text,color,json,plain]")
 	if b.defaultTimeout > 0 {
 		flagSet.DurationVar(&b.timeout, "timeout", b.defaultTimeout, `The duration until timing out, setting it to zero means no timeout`)
 	}
@@ -220,7 +220,7 @@ func getLogLevel(debugFlag bool, noWarnFlag bool) (LogLevel, error) {
 
 func defaultLoggerProvider(container NameContainer, logLevel LogLevel, logFormat LogFormat) (*slog.Logger, error) {
 	switch logFormat {
-	case LogFormatText, LogFormatColor:
+	case LogFormatText, LogFormatColor, LogFormatPlain:
 		return slog.New(slog.NewTextHandler(container.Stderr(), &slog.HandlerOptions{Level: logLevel.SlogLevel()})), nil
 	case LogFormatJSON:
 		return slog.New(slog.NewJSONHandler(container.Stderr(), &slog.HandlerOptions{Level: logLevel.SlogLevel()})), nil

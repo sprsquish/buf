@@ -297,6 +297,7 @@ func (f *file) FindModule(ctx context.Context) {
 	}
 	if module == nil {
 		f.lsp.logger.Warn(fmt.Sprintf("could not find module for %q", f.uri))
+		return
 	}
 
 	// Determine if this is the WKT module. We do so by checking if this module contains

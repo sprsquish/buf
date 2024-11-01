@@ -64,9 +64,15 @@ func getEncoder(logFormat appext.LogFormat) (zapcore.Encoder, error) {
 		return newColortextEncoder(), nil
 	case appext.LogFormatJSON:
 		return newJSONEncoder(), nil
+	case appext.LogFormatPlain:
+		return newPlainEncoder(), nil
 	default:
 		return nil, fmt.Errorf("unknown appext.LogFormat: %v", logFormat)
 	}
+}
+
+func newPlainEncoder() zapcore.Encoder {
+	return zapcore.NewConsoleEncoder(plainEncoderConfig)
 }
 
 func newTextEncoder() zapcore.Encoder {

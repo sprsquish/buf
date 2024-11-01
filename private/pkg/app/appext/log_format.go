@@ -30,6 +30,8 @@ const (
 	LogFormatColor
 	// LogFormatJSON is the JSON log format.
 	LogFormatJSON
+	// LogFormatPlain is like text, but uses space instead of tab as the separator
+	LogFormatPlain
 )
 
 // LogFormat is a format to print logs in.
@@ -44,6 +46,8 @@ func (l LogFormat) String() string {
 		return "color"
 	case LogFormatJSON:
 		return "json"
+	case LogFormatPlain:
+		return "plain"
 	default:
 		return strconv.Itoa(int(l))
 	}
@@ -61,6 +65,8 @@ func ParseLogFormat(logFormatString string) (LogFormat, error) {
 		return LogFormatColor, nil
 	case "json":
 		return LogFormatJSON, nil
+	case "plain":
+		return LogFormatPlain, nil
 	default:
 		return 0, fmt.Errorf("unknown log format [text,color,json]: %q", logFormatString)
 	}

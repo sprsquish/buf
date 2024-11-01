@@ -19,6 +19,22 @@ import (
 )
 
 var (
+	plainEncoderConfig = zapcore.EncoderConfig{
+		MessageKey: "M",
+		LevelKey:   "L",
+		//TimeKey:        "T",
+		NameKey:       "N",
+		CallerKey:     "C",
+		StacktraceKey: "S",
+		LineEnding:    zapcore.DefaultLineEnding,
+		EncodeLevel:   zapcore.CapitalLevelEncoder,
+		//EncodeTime:     zapcore.ISO8601TimeEncoder,
+		EncodeDuration:   zapcore.StringDurationEncoder,
+		EncodeCaller:     zapcore.ShortCallerEncoder,
+		EncodeName:       zapcore.FullNameEncoder,
+		ConsoleSeparator: " ",
+	}
+
 	textEncoderConfig = zapcore.EncoderConfig{
 		MessageKey: "M",
 		LevelKey:   "L",
